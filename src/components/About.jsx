@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { personalInfo } from '../data/config.jsx';
 import GlowCard from './GlowCard.jsx';
@@ -29,7 +28,6 @@ const stats = [
 ];
 
 export default function About({ onOpenProject }) {
-  const [cvOpen, setCvOpen] = useState(false);
   const { scrollY } = useScroll();
   const yPortrait = useTransform(scrollY, [0, 800], [0, 60]);
   return (
@@ -80,14 +78,14 @@ export default function About({ onOpenProject }) {
 
             <motion.div variants={fadeUp} className="mt-9 flex flex-wrap items-center gap-4">
               <Magnetic>
-                <button
-                  type="button"
-                  onClick={() => setCvOpen(true)}
+                <a
+                  href="/Adeniran_Patrick_DC_CV.docx"
+                  download="Adeniran_Patrick_DC_CV.docx"
                   className="inline-flex items-center gap-2 rounded-xl bg-text px-6 py-3 text-sm font-medium text-bg transition-all duration-300 hover:bg-white"
                 >
                   <DownloadIcon size={15} />
                   Download CV
-                </button>
+                </a>
               </Magnetic>
               <Magnetic>
                 <button
@@ -143,32 +141,6 @@ export default function About({ onOpenProject }) {
             </motion.div>
           </motion.div>
         </motion.div>
-
-        {cvOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#050505]/90 p-6 backdrop-blur-sm"
-            onClick={() => setCvOpen(false)}
-          >
-            <div className="relative max-h-[90vh] max-w-[90vw]">
-              <button
-                type="button"
-                onClick={() => setCvOpen(false)}
-                className="absolute -top-4 -right-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-[#0a0a0a] text-lg text-text shadow-lg transition-colors duration-300 hover:border-white/30"
-                aria-label="Close CV preview"
-              >
-                ×
-              </button>
-              <img
-                src="/images/image.png"
-                alt="CV preview"
-                className="max-h-[90vh] w-auto max-w-[90vw] rounded-2xl border border-white/10 object-contain shadow-[0_30px_100px_rgba(0,0,0,0.8)]"
-              />
-            </div>
-          </motion.div>
-        )}
 
         <motion.div
           variants={stagger}
