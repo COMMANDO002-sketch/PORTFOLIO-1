@@ -20,9 +20,9 @@ function CertificateTab() {
     >
       <motion.div
         variants={fadeUp}
-        className="w-full max-w-xl rounded-3xl border border-line-soft bg-card p-4"
+        className="gradient-card w-full max-w-xl rounded-3xl border border-white/10 p-4"
       >
-        <div className="overflow-hidden rounded-2xl border border-line bg-[#0a0a0a]">
+        <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02]">
           <LazyImage
             src="/images/certificate.svg"
             alt={cert.title}
@@ -57,7 +57,7 @@ function TechStackTab() {
             className="group"
           >
             <GlowCard className="h-full rounded-2xl">
-              <div className="flex h-full flex-col items-center gap-4 rounded-2xl border border-line-soft bg-card px-4 py-7 transition-colors duration-300 hover:border-white/20">
+              <div className="card-glow gradient-card flex h-full flex-col items-center gap-4 rounded-2xl border border-white/10 px-4 py-7 hover:border-electric/40">
                 <span className="transition-transform duration-300 group-hover:scale-110">
                   <Icon />
                 </span>
@@ -86,11 +86,11 @@ function ProjectsTab({ onOpenProject }) {
         variants={fadeUp}
         whileHover={{ y: -4 }}
         transition={{ type: 'spring', stiffness: 260, damping: 22 }}
-        className="group w-full max-w-2xl overflow-hidden rounded-3xl border border-line-soft bg-card transition-colors duration-300 hover:border-white/20"
+        className="card-glow gradient-card group w-full max-w-2xl overflow-hidden rounded-3xl border border-white/10 hover:border-electric/40"
       >
         <div className="grid md:grid-cols-[260px_1fr]">
           <div
-            className="relative min-h-[200px] border-b border-line-soft md:border-b-0 md:border-r"
+            className="relative min-h-[200px] border-b border-white/[0.08] md:border-b-0 md:border-r"
             style={{
               backgroundImage:
                 'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)',
@@ -102,7 +102,7 @@ function ProjectsTab({ onOpenProject }) {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.35, duration: 0.5 }}
-                className="mb-3 h-1.5 w-16 rounded-full bg-white/[0.07]"
+                className="mb-3 h-1.5 w-16 rounded-full bg-gradient-to-r from-electric to-cyan shadow-[0_0_12px_-2px_rgba(0,217,255,0.6)]"
               />
               <motion.div
                 initial={{ opacity: 0, x: -12 }}
@@ -123,6 +123,7 @@ function ProjectsTab({ onOpenProject }) {
                 className="mt-5 h-1.5 w-32 rounded-full bg-white/[0.05]"
               />
             </div>
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-electric/[0.08] via-transparent to-cyan/[0.06]" />
           </div>
           <div className="flex flex-col p-7">
             <motion.h3
@@ -153,7 +154,7 @@ function ProjectsTab({ onOpenProject }) {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.5 + i * 0.08, duration: 0.35 }}
-                  className="rounded-full border border-white/10 px-3 py-1 font-mono text-[10px] text-faint"
+                  className="rounded-full border border-white/[0.12] px-3 py-1 font-mono text-[10px] text-muted"
                 >
                   {tech}
                 </motion.span>
@@ -165,7 +166,7 @@ function ProjectsTab({ onOpenProject }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.65, duration: 0.5 }}
               whileHover={{ gap: '0.75rem' }}
-              className="mt-6 inline-flex items-center gap-2 self-start rounded-lg border border-white/15 px-5 py-2.5 text-xs font-medium text-text transition-colors duration-300 hover:border-white/35 hover:bg-white/[0.03]"
+              className="btn-secondary mt-6 inline-flex items-center gap-2 self-start rounded-lg px-5 py-2.5 text-xs font-medium"
             >
               View Project
               <motion.span
@@ -196,7 +197,7 @@ export default function Showcase({ onOpenProject }) {
   };
 
   return (
-    <section id="portfolio" className="relative py-28">
+    <section id="portfolio" className="section-glow relative py-28">
       <div className="mx-auto w-full max-w-6xl px-8">
         <motion.div
           variants={stagger}
@@ -230,7 +231,7 @@ export default function Showcase({ onOpenProject }) {
           viewport={{ once: true, amount: 0.4 }}
           className="mb-12 flex justify-center"
         >
-          <div className="flex rounded-full border border-line bg-[#0b0b0b] p-1.5">
+          <div className="flex rounded-full border border-white/[0.08] bg-white/[0.03] p-1.5 shadow-sm backdrop-blur-md">
             {showcaseCategories.map((cat) => {
               const isActive = active === cat.id;
               return (
@@ -244,13 +245,13 @@ export default function Showcase({ onOpenProject }) {
                   }}
                   aria-pressed={isActive}
                   className={`relative rounded-full px-7 py-2.5 font-mono text-[11px] tracking-wide transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent ${
-                    isActive ? 'text-text' : 'text-faint hover:text-muted'
+                    isActive ? 'text-text' : 'text-faint hover:text-white'
                   }`}
                 >
                   {isActive && (
                     <motion.span
                       layoutId="showcase-pill"
-                      className="absolute inset-0 rounded-full bg-white/[0.09] ring-1 ring-white/10"
+                      className="absolute inset-0 rounded-full bg-white/[0.06] ring-1 ring-electric/40 shadow-[0_0_20px_-6px_rgba(37,99,255,0.55)]"
                       transition={{ type: 'spring', stiffness: 400, damping: 34 }}
                     />
                   )}

@@ -30,7 +30,7 @@ export default function GlowCard({ children, className = '', ...props }) {
           top: pos.y,
           width: 280,
           height: 280,
-          background: 'radial-gradient(circle, rgba(77,141,255,0.07) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(37,99,255,0.10) 0%, rgba(0,217,255,0.05) 45%, transparent 70%)',
           opacity: active ? 1 : 0,
         }}
       />

@@ -148,6 +148,7 @@ export const socialIcons = {
   youtube: YoutubeIcon,
   github: GithubIcon,
   tiktok: TiktokIcon,
+  whatsapp: MessageIcon,
 };
 
 export {

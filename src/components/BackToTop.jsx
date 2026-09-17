@@ -20,7 +20,7 @@ export default function BackToTop() {
           exit={{ opacity: 0, scale: 0.8, y: 12 }}
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-8 right-8 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-line-soft bg-[#0a0a0a]/90 text-muted backdrop-blur-md transition-colors duration-300 hover:border-white/20 hover:text-text"
+          className="fixed bottom-8 right-8 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-electric/30 bg-navy/80 text-muted shadow-lg backdrop-blur-md transition-all duration-300 hover:border-cyan/60 hover:text-white hover:shadow-[0_0_28px_-8px_rgba(0,217,255,0.6)]"
           aria-label="Back to top"
         >
           <ArrowDownIcon size={14} className="-rotate-90" />

@@ -36,10 +36,10 @@ function TypingRole() {
   }, [text, isDeleting, index]);
 
   return (
-    <span className="text-faint">
-      {text}
-      <span className="animate-pulse text-accent">|</span>
-    </span>
+    <>
+      <span className="text-gradient">{text}</span>
+      <span className="animate-pulse text-cyan">|</span>
+    </>
   );
 }
 
@@ -49,8 +49,9 @@ export default function Hero({ ready }) {
   const yText = useTransform(scrollY, [0, 700], [0, -40]);
 
   return (
-    <section id="home" className="relative flex min-h-screen items-center overflow-hidden pt-32 pb-24">
-      <div className="mx-auto grid w-full max-w-6xl items-center gap-6 px-8 md:grid-cols-[1.15fr_0.85fr]">
+    <section id="home" className="hero-surface relative flex min-h-screen items-center overflow-hidden pt-32 pb-24">
+      <div className="hero-aura" aria-hidden="true" />
+      <div className="relative z-[1] mx-auto grid w-full max-w-6xl items-center gap-6 px-8 md:grid-cols-[1.15fr_0.85fr]">
         <div>
           <motion.div
             variants={stagger}
@@ -61,15 +62,15 @@ export default function Hero({ ready }) {
           >
             <motion.p
               variants={fadeUp}
-              className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 font-mono text-[10px] tracking-[0.25em] text-muted"
+              className="mb-6 inline-flex items-center gap-2 rounded-full border border-electric/25 bg-navy/60 px-3.5 py-1.5 font-mono text-[10px] tracking-[0.25em] text-white/80 shadow-[0_0_24px_-8px_rgba(37,99,255,0.55)] backdrop-blur-md"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+              <span className="h-1.5 w-1.5 rounded-full bg-cyan animate-pulse shadow-[0_0_10px_rgba(0,217,255,0.8)]" />
               {personalInfo.status}
             </motion.p>
 
             <motion.h1
               variants={fadeUp}
-              className="font-display text-[64px] font-bold leading-[0.95] tracking-tight md:text-[84px]"
+              className="font-display text-[64px] font-bold leading-[0.95] tracking-tight text-text md:text-[84px]"
             >
               <span className="block text-text">Frontend</span>
               <span className="block"><TypingRole /></span>
@@ -87,7 +88,7 @@ export default function Hero({ ready }) {
               {heroTags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full border border-white/10 bg-white/[0.02] px-4 py-1.5 font-mono text-[11px] text-muted transition-colors duration-300 hover:border-white/20 hover:text-text cursor-default"
+                  className="badge-tech rounded-full border px-4 py-1.5 font-mono text-[11px] cursor-default"
                 >
                   {tag}
                 </span>
@@ -109,26 +110,28 @@ export default function Hero({ ready }) {
         >
           <motion.div style={{ y: yPortrait }} className="relative">
             <div
-              className="absolute -top-20 right-8 h-28 w-px bg-gradient-to-b from-transparent via-white/25 to-white/5"
+              className="absolute -top-20 right-8 h-28 w-px bg-gradient-to-b from-transparent via-cyan/50 to-white/20"
               aria-hidden
             />
             <Tilt max={6}>
-              <div className="relative h-[460px] w-[330px] overflow-hidden rounded-[26px] border border-white/20 bg-[#0d0d0d] shadow-[0_30px_80px_rgba(0,0,0,0.6)]">
-                <img
-                  src="/images/portrait.jpg"
-                  alt={personalInfo.name}
-                  className="h-full w-full object-cover grayscale contrast-[1.08]"
-                  loading="eager"
-                />
-                <div className="pointer-events-none absolute inset-0 rounded-[26px] border border-white/5" />
-                <div className="pointer-events-none absolute inset-0 rounded-[26px] bg-gradient-to-t from-[#050505]/40 via-transparent to-transparent" />
+              <div className="relative rounded-[27px] bg-gradient-to-tr from-electric via-cyan to-violet p-[1.5px] shadow-[0_30px_80px_rgba(0,0,0,0.6),0_0_70px_-14px_rgba(37,99,255,0.5),0_0_40px_-16px_rgba(0,217,255,0.35)]">
+                <div className="relative h-[460px] w-[330px] overflow-hidden rounded-[26px] bg-[#0a0a0a]">
+                  <img
+                    src="/images/portrait.jpg"
+                    alt={personalInfo.name}
+                    className="h-full w-full object-cover grayscale contrast-[1.08]"
+                    loading="eager"
+                  />
+                  <div className="pointer-events-none absolute inset-0 rounded-[26px] border border-white/10" />
+                  <div className="pointer-events-none absolute inset-0 rounded-[26px] bg-gradient-to-t from-[#050505]/50 via-transparent to-transparent" />
+                </div>
               </div>
             </Tilt>
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={ready ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.8, delay: 1.2, ...EASE_OUT }}
-              className="float-slow absolute -bottom-4 -left-6 rounded-xl border border-line-soft bg-card px-4 py-3 shadow-lg"
+              className="gradient-card float-slow absolute -bottom-4 -left-6 rounded-xl border border-electric/20 px-4 py-3 shadow-[0_0_24px_-10px_rgba(37,99,255,0.5)]"
             >
               <p className="font-mono text-[10px] tracking-widest text-faint">YEARS EXP</p>
               <p className="mt-1 font-display text-xl font-bold text-text">1+</p>
@@ -137,11 +140,11 @@ export default function Hero({ ready }) {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={ready ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.8, delay: 1.35, ...EASE_OUT }}
-              className="float-slower absolute -right-5 top-10 rounded-xl border border-line-soft bg-card px-4 py-3 shadow-lg"
+              className="gradient-card float-slower absolute -right-5 top-10 rounded-xl border border-electric/20 px-4 py-3 shadow-[0_0_24px_-10px_rgba(37,99,255,0.5)]"
             >
               <div className="flex items-center gap-2">
                 <motion.span
-                  className="h-2 w-2 rounded-full bg-accent"
+                  className="h-2 w-2 rounded-full bg-cyan shadow-[0_0_10px_rgba(0,217,255,0.8)]"
                   animate={{ scale: [1, 1.4, 1] }}
                   transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
                 />
@@ -162,6 +165,7 @@ export default function Hero({ ready }) {
         <motion.span
           animate={{ y: [0, 6, 0] }}
           transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+          className="text-cyan"
         >
           <ArrowDownIcon size={12} />
         </motion.span>

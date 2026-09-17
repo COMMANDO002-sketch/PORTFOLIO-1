@@ -88,7 +88,7 @@ export default function Navbar({ enabled }) {
           enabled ? 'opacity-100' : 'pointer-events-none opacity-0'
         }`}
       >
-        <div className="flex w-full max-w-[860px] items-center justify-between rounded-full border border-line-soft bg-[#0a0a0a]/80 py-2 pl-6 pr-2 shadow-[0_10px_40px_rgba(0,0,0,0.6)] backdrop-blur-md">
+        <div className="flex w-full max-w-[860px] items-center justify-between rounded-full border border-white/[0.08] bg-[#04070d]/80 py-2 pl-6 pr-2 shadow-[0_10px_40px_rgba(0,0,0,0.5),0_0_30px_-12px_rgba(37,99,255,0.25)] backdrop-blur-xl">
           <a href="#home" className="font-mono text-sm text-muted transition-colors duration-300 hover:text-text">
             {personalInfo.brand}
           </a>
@@ -101,14 +101,12 @@ export default function Navbar({ enabled }) {
                   key={link.href}
                   href={link.href}
                   onClick={(event) => handleNavClick(event, link.href)}
-                  className={`relative rounded-full px-5 py-2 font-mono text-[11px] tracking-wide transition-colors duration-300 ${
-                    isActive ? 'text-text' : 'text-faint hover:text-muted'
-                  }`}
+                  className={`relative rounded-full px-5 py-2 font-mono text-[11px] tracking-wide transition-colors duration-300 ${isActive ? 'text-primary' : 'text-faint hover:text-primary'}`}
                 >
                   {isActive && (
                     <motion.span
                       layoutId="nav-underline"
-                      className="absolute inset-x-4 bottom-0 h-px bg-accent"
+                      className="absolute inset-x-5 bottom-[3px] h-[2px] rounded-full bg-gradient-to-r from-electric via-cyan to-violet shadow-[0_0_12px_rgba(0,217,255,0.7)]"
                       transition={{ type: 'spring', stiffness: 300, damping: 34 }}
                     />
                   )}
@@ -120,7 +118,7 @@ export default function Navbar({ enabled }) {
 
           <button
             onClick={() => setMobileOpen((o) => !o)}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-muted transition-colors duration-300 hover:text-text md:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-[#04070d] text-muted transition-colors duration-300 hover:text-white md:hidden"
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileOpen}
           >
@@ -136,7 +134,7 @@ export default function Navbar({ enabled }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-[#050505]/95 backdrop-blur-lg md:hidden"
+            className="fixed inset-0 z-40 bg-[#04060c] md:hidden"
             onClick={() => setMobileOpen(false)}
           >
             <motion.nav
@@ -158,7 +156,7 @@ export default function Navbar({ enabled }) {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: 0.15 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
                     className={`rounded-full px-8 py-3 font-mono text-sm tracking-wide transition-colors duration-300 ${
-                      isActive ? 'text-accent' : 'text-faint hover:text-muted'
+                      isActive ? 'text-cyan' : 'text-faint hover:text-muted'
                     }`}
                   >
                     {link.label}

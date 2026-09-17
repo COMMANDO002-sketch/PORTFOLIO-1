@@ -71,11 +71,11 @@ export const techStack = [
 ];
 
 export const socialLinks = [
-  { label: 'LinkedIn', handle: '@linkedin', icon: 'linkedin', wide: true },
-  { label: 'Instagram', handle: '@instagram', icon: 'instagram' },
-  { label: 'YouTube', handle: '@youtube', icon: 'youtube' },
-  { label: 'GitHub', handle: '@github', icon: 'github' },
-  { label: 'TikTok', handle: '@tiktok', icon: 'tiktok' },
+  { label: 'WhatsApp', handle: 'Chat with me', icon: 'whatsapp', href: 'https://wa.me/qr/K3G2LVCYLUB7G1', wide: true },
+  { label: 'Instagram', handle: 'Currently inactive', icon: 'instagram', inactive: true },
+  { label: 'YouTube', handle: '@AdeniranPatrick', icon: 'youtube', href: 'https://www.youtube.com/@AdeniranPatrick' },
+  { label: 'GitHub', handle: '@COMMANDO002-sketch', icon: 'github', href: 'https://github.com/COMMANDO002-sketch' },
+  { label: 'TikTok', handle: '@AdeniranPatrick', icon: 'tiktok', href: 'https://vm.tiktok.com/ZS9SoR2Jk5Spc-YzUyF/' },
 ];
 
 export const comments = [

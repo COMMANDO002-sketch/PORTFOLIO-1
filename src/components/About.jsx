@@ -32,8 +32,8 @@ export default function About({ onOpenProject }) {
   const yPortrait = useTransform(scrollY, [0, 800], [0, 60]);
   return (
     <>
-    <section id="about" className="relative py-28">
-      <div className="mx-auto w-full max-w-6xl px-8">
+    <section id="about" className="about-section relative py-28">
+      <div className="relative z-[1] mx-auto w-full max-w-6xl px-8">
         <motion.div
           variants={stagger}
           initial="hidden"
@@ -69,7 +69,7 @@ export default function About({ onOpenProject }) {
 
             <motion.blockquote
               variants={fadeUp}
-              className="mt-9 max-w-lg rounded-2xl border border-line-soft bg-card px-7 py-6"
+              className="mt-9 max-w-lg rounded-2xl border border-white/10 gradient-card px-7 py-6"
             >
               <p className="text-[15px] font-light italic leading-relaxed text-muted">
                 “{personalInfo.quote}”
@@ -81,7 +81,7 @@ export default function About({ onOpenProject }) {
                 <a
                   href="/Adeniran_Patrick_DC_CV.docx"
                   download="Adeniran_Patrick_DC_CV.docx"
-                  className="inline-flex items-center gap-2 rounded-xl bg-text px-6 py-3 text-sm font-medium text-bg transition-all duration-300 hover:bg-white"
+                  className="primary-gradient inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-medium transition-all duration-300"
                 >
                   <DownloadIcon size={15} />
                   Download CV
@@ -90,7 +90,7 @@ export default function About({ onOpenProject }) {
               <Magnetic>
                 <button
                   onClick={() => onOpenProject()}
-                  className="inline-flex items-center gap-2 rounded-xl border border-white/15 px-6 py-3 text-sm font-medium text-text transition-all duration-300 hover:border-white/35 hover:bg-white/[0.03]"
+                  className="btn-secondary inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-medium"
                 >
                   View Projects
                   <ArrowRightIcon size={14} />
@@ -118,7 +118,7 @@ export default function About({ onOpenProject }) {
                   aria-hidden
                 />
                 <Tilt max={5} className="rounded-full">
-                  <div className="relative h-[380px] w-[380px] overflow-hidden rounded-full border border-white/20 bg-[#0d0d0d] shadow-[0_0_90px_rgba(255,255,255,0.06)]">
+                  <div className="relative h-[380px] w-[380px] overflow-hidden rounded-full border border-white/15 bg-[#0d0d0d] shadow-[0_0_90px_rgba(37,99,255,0.18)]">
                     <LazyImage
                       src="/images/portrait.jpg"
                       alt={personalInfo.name}
@@ -132,7 +132,7 @@ export default function About({ onOpenProject }) {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true, amount: 0.5 }}
                   transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.6 }}
-                  className="float-slow absolute -bottom-2 left-6 rounded-xl border border-line-soft bg-card px-4 py-3 shadow-lg"
+                  className="float-slow absolute -bottom-2 left-6 rounded-xl border border-electric/20 gradient-card px-4 py-3 shadow-[0_0_20px_-8px_rgba(37,99,255,0.5)]"
                 >
                   <p className="font-mono text-[10px] tracking-widest text-faint">ROLE</p>
                   <p className="mt-1 font-display text-sm font-bold text-text">Frontend Dev</p>
@@ -158,8 +158,8 @@ export default function About({ onOpenProject }) {
                 className="group"
               >
                 <GlowCard className="h-full rounded-2xl">
-                  <div className="flex items-center gap-5 rounded-2xl border border-line-soft bg-card px-6 py-6 transition-colors duration-300 hover:border-white/20">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-[#141414] text-muted transition-colors duration-300 group-hover:text-text">
+                  <div className="card-glow gradient-card flex items-center gap-5 rounded-2xl border border-white/10 px-6 py-6 hover:border-electric/40">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-electric to-cyan text-white shadow-[0_8px_20px_-8px_rgba(37,99,255,0.7)] transition-transform duration-300 group-hover:scale-105">
                       <Icon size={18} />
                     </span>
                     <div>
@@ -170,7 +170,7 @@ export default function About({ onOpenProject }) {
                         {stat.label}
                       </p>
                     </div>
-                    <ArrowDownIcon size={14} className="ml-auto -rotate-90 text-faint transition-colors duration-300 group-hover:text-muted" />
+                    <ArrowDownIcon size={14} className="ml-auto -rotate-90 text-faint transition-colors duration-300 group-hover:text-cyan" />
                   </div>
                 </GlowCard>
               </motion.div>

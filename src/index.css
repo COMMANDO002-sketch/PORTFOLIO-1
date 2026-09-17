@@ -2,17 +2,27 @@
 
 @theme {
   --color-bg: #050505;
-  --color-subtle: #0a0a0a;
-  --color-card: #0f0f0f;
-  --color-card-2: #131313;
-  --color-line: #262626;
-  --color-line-soft: #1c1c1c;
-  --color-text: #f5f5f5;
-  --color-muted: #9a9a9a;
-  --color-faint: #5c5c5c;
-  --color-accent: #4d8dff;
+  --color-subtle: #04060c;
+  --color-navy: #07111f;
+  --color-card: #07111f;
+  --color-card-2: #0a1626;
+  --color-line: #1d2c44;
+  --color-line-soft: #15202f;
+  --color-text: #f5f7fa;
+  --color-muted: #8a8f98;
+  --color-faint: #5f6773;
+  --color-electric: #2563ff;
+  --color-cyan: #00d9ff;
+  --color-violet: #7c3aed;
+  --color-accent: #2563ff;
   --font-display: 'Space Grotesk', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+}
+
+:root {
+  color-scheme: dark;
+  --blue-cyan-gradient: linear-gradient(110deg, #2563ff 0%, #00d9ff 52%, #7c3aed 120%);
+  --navy-black-gradient: linear-gradient(145deg, rgba(7, 17, 31, 0.92), rgba(5, 5, 5, 0.9));
 }
 
 html {
@@ -22,20 +32,23 @@ html {
 
 body {
   background-color: #050505;
+  background-image:
+    radial-gradient(120% 80% at 50% -10%, rgba(7, 17, 31, 0.7) 0%, rgba(5, 5, 5, 0) 60%),
+    linear-gradient(#050505, #04060c);
   font-family: var(--font-display);
-  color: #f5f5f5;
+  color: #f5f7fa;
   overflow-x: hidden;
 }
 
 ::selection {
-  background-color: #4d8dff;
+  background-color: #2563ff;
   color: #050505;
 }
 
 /* Accessible focus states */
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid rgba(77, 141, 255, 0.6);
+  outline: 2px solid rgba(37, 99, 255, 0.65);
   outline-offset: 2px;
 }
 
@@ -43,19 +56,17 @@ button:focus-visible {
 .skeleton {
   position: relative;
   overflow: hidden;
-  background: #0d0d0d;
+  background: #0a1420;
 }
 .skeleton::after {
   content: '';
   position: absolute;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 24%;
   transform: translateX(-100%);
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.05),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.09), transparent);
   animation: shimmer 1.6s infinite;
 }
 @keyframes shimmer {
@@ -71,38 +82,524 @@ button:focus-visible {
   background: #050505;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a2a2a;
+  background: linear-gradient(#2563ff, #00d9ff);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #4d8dff;
+  background: #00d9ff;
 }
 
-/* Persistent fine technical grid background */
-.grid-bg {
+/* ============================================================= */
+/* Gradient text                                                 */
+/* ============================================================= */
+
+/* Hero role / headings — blue → cyan → violet */
+.text-gradient {
+  background-image: linear-gradient(90deg, #2563ff 0%, #00d9ff 48%, #7c3aed 100%);
+  background-size: 200% auto;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: gradientShift 9s ease-in-out infinite alternate;
+}
+@keyframes gradientShift {
+  from { background-position: 0% 50%; }
+  to   { background-position: 100% 50%; }
+}
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .text-gradient {
+    -webkit-text-fill-color: initial;
+    color: #00d9ff;
+  }
+}
+
+/* Primary CTA — electric blue → cyan with sheen + glow */
+.primary-gradient {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-image: linear-gradient(90deg, #2563ff 0%, #00d9ff 100%);
+  color: #f5f7fa;
+  box-shadow:
+    0 10px 30px -10px rgba(37, 99, 255, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease;
+}
+.primary-gradient::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, #00d9ff 0%, #2563ff 100%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.primary-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 16px 44px -12px rgba(37, 99, 255, 0.65),
+    0 0 0 1px rgba(0, 217, 255, 0.22),
+    0 0 30px -8px rgba(0, 217, 255, 0.45);
+}
+.primary-gradient:hover::before {
+  opacity: 1;
+}
+.primary-gradient:active {
+  transform: translateY(0) scale(0.99);
+}
+
+/* Secondary CTA — dark glass with subtle gradient border */
+.btn-secondary {
+  position: relative;
+  color: #f5f7fa;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(rgba(5, 8, 14, 0.72), rgba(5, 8, 14, 0.72)) padding-box,
+    linear-gradient(135deg, rgba(37, 99, 255, 0.55), rgba(0, 217, 255, 0.4)) border-box;
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 36px -16px rgba(37, 99, 255, 0.55),
+    0 0 0 1px rgba(0, 217, 255, 0.18);
+}
+
+.gradient-border {
+  position: relative;
+  isolation: isolate;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(rgba(7, 17, 31, 0.78), rgba(5, 5, 5, 0.86)) padding-box,
+    var(--blue-cyan-gradient) border-box;
+}
+
+.gradient-border::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 0 34px -14px rgba(0, 217, 255, 0.6);
+  transition: opacity 0.4s ease;
+}
+
+.gradient-border:hover::after {
+  opacity: 1;
+}
+
+/* Tech badges — subtle cyan hover state */
+.badge-tech {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.02);
+  color: #8a8f98;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.badge-tech:hover {
+  border-color: rgba(0, 217, 255, 0.45);
+  background: rgba(0, 217, 255, 0.06);
+  color: #eaf7ff;
+  box-shadow: 0 0 20px -6px rgba(0, 217, 255, 0.4);
+}
+
+/* Glass form fields — dark navy with blue focus glow */
+.glass-input {
+  background: rgba(7, 17, 31, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+.glass-input:focus-within {
+  border-color: rgba(37, 99, 255, 0.55);
+  background-color: rgba(7, 17, 31, 0.72);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 0 0 3px rgba(37, 99, 255, 0.12),
+    0 0 26px -8px rgba(37, 99, 255, 0.45);
+}
+
+/* Cards — subtle elevation + blue/cyan illumination on hover */
+.card-glow {
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
+  will-change: transform;
+}
+.card-glow:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 22px 60px -20px rgba(37, 99, 255, 0.28),
+    0 0 0 1px rgba(0, 217, 255, 0.1),
+    inset 0 0 40px rgba(37, 99, 255, 0.04);
+}
+
+/* ============================================================= */
+/* Premium animated background                                   */
+/* ============================================================= */
+
+/* Layer 1 — Fixed full-screen stage, strictly behind content.
+   Deep near-black base with a faint navy-to-black radial tint. */
+.bg-fx {
   position: fixed;
   inset: 0;
   z-index: 0;
+  overflow: hidden;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mask-image: radial-gradient(ellipse 130% 120% at 50% 40%, #000 55%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 130% 120% at 50% 40%, #000 55%, transparent 100%);
+    radial-gradient(120% 80% at 50% -10%, rgba(7, 17, 31, 0.8) 0%, rgba(5, 5, 5, 0) 60%),
+    radial-gradient(140% 100% at 50% 110%, rgba(7, 17, 31, 0.5) 0%, rgba(5, 5, 5, 0) 55%),
+    linear-gradient(#050505, #04060c);
 }
 
-/* Soft ambient radial lighting */
-.ambient-glow {
-  position: fixed;
+/* Layer 2 — Large drifting soft-light fields (blue/cyan/violet). */
+.bg-parallax {
+  position: absolute;
+  inset: -10%;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.blob {
+  display: block;
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.blob-1 {
+  width: 72vmax;
+  height: 72vmax;
+  top: -20vmax;
+  left: -16vmax;
+  background: radial-gradient(circle, rgba(37, 99, 255, 0.16) 0%, rgba(37, 99, 255, 0.05) 48%, transparent 72%);
+  animation: blobA 42s ease-in-out infinite alternate;
+}
+.blob-2 {
+  width: 60vmax;
+  height: 60vmax;
+  top: -8vmax;
+  right: -22vmax;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.11) 0%, rgba(124, 58, 237, 0.04) 48%, transparent 72%);
+  animation: blobB 56s ease-in-out infinite alternate;
+}
+.blob-3 {
+  width: 54vmax;
+  height: 54vmax;
+  bottom: -18vmax;
+  left: 4vmax;
+  background: radial-gradient(circle, rgba(0, 217, 255, 0.09) 0%, rgba(0, 217, 255, 0.03) 48%, transparent 72%);
+  animation: blobC 38s ease-in-out infinite alternate;
+}
+.blob-4 {
+  width: 66vmax;
+  height: 66vmax;
+  bottom: -16vmax;
+  right: -6vmax;
+  background: radial-gradient(circle, rgba(37, 99, 255, 0.12) 0%, rgba(37, 99, 255, 0.04) 48%, transparent 72%);
+  animation: blobD 48s ease-in-out infinite alternate;
+}
+.blob-5 {
+  width: 46vmax;
+  height: 46vmax;
+  top: 26vmax;
+  left: 38vmax;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.06) 0%, rgba(124, 58, 237, 0.02) 50%, transparent 72%);
+  animation: blobE 64s ease-in-out infinite alternate;
+}
+
+@keyframes blobA {
+  from { transform: translate3d(-6%, -4%, 0) scale(1);   opacity: 0.55; }
+  to   { transform: translate3d(6%, 5%, 0) scale(1.12);  opacity: 0.85; }
+}
+@keyframes blobB {
+  from { transform: translate3d(5%, -3%, 0) scale(1.08); opacity: 0.5; }
+  to   { transform: translate3d(-5%, 4%, 0) scale(0.96); opacity: 0.8; }
+}
+@keyframes blobC {
+  from { transform: translate3d(-4%, 6%, 0) scale(1);    opacity: 0.45; }
+  to   { transform: translate3d(4%, -5%, 0) scale(1.1);  opacity: 0.75; }
+}
+@keyframes blobD {
+  from { transform: translate3d(-6%, -3%, 0) scale(0.96); opacity: 0.45; }
+  to   { transform: translate3d(5%, 6%, 0) scale(1.14);   opacity: 0.8; }
+}
+@keyframes blobE {
+  from { transform: translate3d(3%, 2%, 0) scale(1.06);  opacity: 0.35; }
+  to   { transform: translate3d(-4%, -4%, 0) scale(0.94); opacity: 0.6; }
+}
+
+/* Layer 3 — Slow-moving atmospheric light band across the top,
+   masked to fade out downward so it never reaches text. */
+.bg-aurora {
+  position: absolute;
+  top: -18%;
+  left: -10%;
+  width: 120%;
+  height: 55%;
+  display: block;
+  background: radial-gradient(58% 95% at 50% 0%, rgba(37, 99, 255, 0.09) 0%, rgba(0, 217, 255, 0.035) 45%, rgba(5, 5, 5, 0) 78%);
+  animation: auroraFlow 34s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes auroraFlow {
+  from { transform: translate3d(-3%, -1%, 0) scale(1); }
+  to   { transform: translate3d(3%, 2%, 0) scale(1.07); }
+}
+
+/* Breathing focal glow anchored behind the hero area. */
+.bg-hero-glow {
+  position: absolute;
+  top: 4%;
+  left: 50%;
+  width: 112vmin;
+  height: 112vmin;
+  transform: translateX(-50%);
+  display: block;
+  background: radial-gradient(circle, rgba(0, 217, 255, 0.06) 0%, rgba(37, 99, 255, 0.05) 45%, rgba(5, 5, 5, 0) 72%);
+  animation: heroBreath 18s ease-in-out infinite alternate;
+}
+
+@keyframes heroBreath {
+  from { transform: translateX(-50%) scale(0.94); opacity: 0.75; }
+  to   { transform: translateX(-50%) scale(1.08); opacity: 1; }
+}
+
+/* Layer 4 — Persistent fine technical grid with a gentle pulse,
+   masked to a soft ellipse so only the ambiance is visible. */
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='46' height='46' viewBox='0 0 46 46'%3E%3Cpath d='M0 0H46M0 0V46' fill='none' stroke='%23547af0' stroke-opacity='.18'/%3E%3C/svg%3E");
+  background-size: 46px 46px;
+  animation: gridPulse 10s ease-in-out infinite, gridDrift 26s linear infinite;
+  will-change: opacity, background-position;
+}
+
+@keyframes gridPulse {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 0.85; }
+}
+
+@keyframes gridDrift {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 46px 46px, 46px 46px; }
+}
+
+/* A narrow cyan scan sweep adds a quiet instrument-panel feel
+   without competing with the content or increasing canvas work. */
+.bg-scanline {
+  position: absolute;
+  inset: -30% 0;
+  pointer-events: none;
+  opacity: 0.3;
+  height: 1px;
+  background: rgba(0, 217, 255, 0.16);
+  box-shadow: 0 0 18px rgba(0, 150, 255, 0.2);
+  mix-blend-mode: screen;
+  animation: scanSweep 11s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  will-change: transform;
+}
+
+@keyframes scanSweep {
+  from { transform: translate3d(0, -58%, 0); }
+  to   { transform: translate3d(0, 58%, 0); }
+}
+
+/* Layer 5 — Canvas layer for tiny particles, network links and
+   occasional light streaks (drawn in JS). */
+.tech-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Layer 6 — Fine static film grain for a cinematic finish.
+   Inline SVG turbulence, very low opacity, no animation (cheap). */
+.bg-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+}
+
+/* Soft cyan/blue light that eases toward the cursor, giving the
+   background a living, responsive feel. Movement is subtle. */
+.cursor-glow {
+  position: absolute;
+  width: 44vmin;
+  height: 44vmin;
+  border-radius: 50%;
+  opacity: 0;
+  display: block;
+  background: radial-gradient(circle, rgba(0, 217, 255, 0.05) 0%, rgba(37, 99, 255, 0.04) 40%, rgba(5, 5, 5, 0) 70%);
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+/* Deep vignette that darkens the edges, focusing attention on the
+   content and keeping text comfortable to read. */
+.bg-vignette {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: radial-gradient(130% 100% at 50% 45%, rgba(5, 5, 5, 0) 55%, rgba(2, 4, 9, 0.55) 100%);
+  pointer-events: none;
+}
+
+/* Soft light aura wrapped around the hero content itself, so the
+   name/title area gets its own blue/cyan atmosphere. */
+.hero-aura {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.hero-aura::before,
+.hero-aura::after {
+  content: '';
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  will-change: transform, opacity;
+}
+.hero-aura::before {
+  top: 12%;
+  left: 22%;
+  width: 62vmin;
+  height: 62vmin;
+  background: radial-gradient(circle, rgba(37, 99, 255, 0.11) 0%, rgba(37, 99, 255, 0.04) 55%, transparent 75%);
+  animation: heroAura 13s ease-in-out infinite alternate;
+}
+.hero-aura::after {
+  top: 6%;
+  right: 4%;
+  width: 48vmin;
+  height: 48vmin;
+  background: radial-gradient(circle, rgba(0, 217, 255, 0.08) 0%, rgba(0, 217, 255, 0.03) 55%, transparent 75%);
+  animation: heroAura 17s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes heroAura {
+  from { transform: scale(0.92); opacity: 0.7; }
+  to   { transform: scale(1.1);  opacity: 1; }
+}
+
+/* ============================================================= */
+/* Section atmosphere                                            */
+/* ============================================================= */
+
+/* Hero — subtle navy depth behind the content without stealing focus */
+.hero-surface {
+  background:
+    radial-gradient(90% 80% at 75% 10%, rgba(7, 17, 31, 0.55) 0%, rgba(5, 5, 5, 0) 60%),
+    linear-gradient(180deg, rgba(5, 5, 5, 0.1), rgba(5, 5, 5, 0.4));
+}
+
+/* About — dark navy gradients, blue/cyan accent line, soft violet glow */
+.about-section::before,
+.contact-section::before {
+  content: '';
+  position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(60% 45% at 18% 18%, rgba(255, 255, 255, 0.045), transparent 70%),
-    radial-gradient(50% 40% at 82% 30%, rgba(255, 255, 255, 0.035), transparent 70%),
-    radial-gradient(55% 45% at 55% 78%, rgba(77, 141, 255, 0.03), transparent 72%);
+    radial-gradient(70% 55% at 12% 18%, rgba(7, 17, 31, 0.55) 0%, rgba(5, 5, 5, 0) 70%),
+    radial-gradient(50% 45% at 88% 28%, rgba(124, 58, 237, 0.06) 0%, rgba(5, 5, 5, 0) 70%),
+    radial-gradient(60% 50% at 55% 95%, rgba(37, 99, 255, 0.06) 0%, rgba(5, 5, 5, 0) 70%);
 }
+.about-section::after {
+  content: '';
+  position: absolute;
+  top: 3rem;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(37, 99, 255, 0.3), rgba(0, 217, 255, 0.3), transparent);
+}
+
+/* Footer — faint gradient glow rising from the bottom */
+.site-footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(55% 120% at 50% 100%, rgba(37, 99, 255, 0.07) 0%, rgba(5, 5, 5, 0) 70%);
+}
+
+/* ============================================================= */
+/* Glass surfaces                                                */
+/* ============================================================= */
+
+/* Translucent navy glass panel used across cards and widgets so
+   they sit comfortably over the animated background while
+   keeping strong text contrast. */
+.gradient-card {
+  background: linear-gradient(180deg, rgba(10, 20, 34, 0.84), rgba(5, 8, 14, 0.82));
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  box-shadow:
+    inset 0 1px 0 rgba(120, 180, 255, 0.08),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.02),
+    0 24px 48px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(37, 99, 255, 0.06);
+}
+
+.section-glow {
+  position: relative;
+  isolation: isolate;
+}
+
+.section-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(55% 65% at 10% 25%, rgba(37, 99, 255, 0.08), transparent 72%),
+    radial-gradient(42% 55% at 88% 40%, rgba(124, 58, 237, 0.055), transparent 72%);
+}
+
+/* Active navigation glow */
+.nav-active {
+  color: #f5f7fa;
+}
+.nav-active::before {
+  content: '';
+  position: absolute;
+  inset: 3px 6px 6px;
+  border-radius: 999px;
+  pointer-events: none;
+  background: radial-gradient(90% 120% at 50% 0%, rgba(37, 99, 255, 0.16) 0%, rgba(37, 99, 255, 0.02) 60%, transparent 100%);
+}
+
+/* ============================================================= */
+/* Existing motion helpers                                       */
+/* ============================================================= */
 
 /* Infinite marquee ticker */
 @keyframes marquee {
@@ -139,17 +636,78 @@ button:focus-visible {
   animation: blink 2.4s ease-in-out infinite;
 }
 
+/* ============================================================= */
+/* Motion preferences & responsive tuning                        */
+/* ============================================================= */
+
 @media (prefers-reduced-motion: reduce) {
   .marquee-track,
   .float-slow,
   .float-slower,
-  .blink-slow {
+  .blink-slow,
+  .text-gradient {
     animation: none !important;
+  }
+
+  .blob,
+  .bg-aurora,
+  .bg-hero-glow,
+  .grid-bg,
+  .bg-scanline,
+  .hero-aura::before,
+  .hero-aura::after {
+    animation: none !important;
+  }
+
+  .cursor-glow {
+    display: none;
+  }
+
+  html {
+    scroll-behavior: auto;
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
+/* Reduce background complexity on small screens to stay smooth */
+@media (max-width: 768px) {
+  .bg-aurora {
+    height: 40%;
+  }
+  .bg-hero-glow {
+    width: 130vmin;
+    height: 130vmin;
+    opacity: 0.7;
+  }
+  .blob-1 {
+    width: 92vw;
+    height: 92vw;
+    top: -26vw;
+    left: -32vw;
+  }
+  .blob-2 {
+    width: 84vw;
+    height: 84vw;
+    top: -16vw;
+    right: -36vw;
+  }
+  .blob-3 {
+    width: 74vw;
+    height: 74vw;
+    bottom: -22vw;
+    left: -8vw;
+  }
+  .blob-4,
+  .blob-5 {
+    display: none;
+  }
+  .cursor-glow {
+    display: none;
+  }
+  .grid-bg {
+    background-size: 34px 34px;
+  }
+  .gradient-card {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
   }
 }

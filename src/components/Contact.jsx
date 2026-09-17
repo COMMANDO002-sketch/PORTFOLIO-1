@@ -61,7 +61,7 @@ function ContactPanel() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="rounded-3xl border border-line-soft bg-card p-8">
+      <div className="gradient-card rounded-3xl border border-white/10 p-8">
         <h3 className="font-display text-2xl font-bold tracking-tight text-text">COMMANDO</h3>
         <p className="mt-3 text-sm font-light leading-relaxed text-muted">
           Feel free to reach out if you want to collaborate, discuss ideas, or simply say hello.
@@ -69,10 +69,10 @@ function ContactPanel() {
 
         <form className="mt-8 flex flex-col gap-4" onSubmit={handleSubmit} noValidate>
           <div>
-            <label className="flex items-center gap-3 rounded-xl border bg-[#0a0a0a] px-4 transition-colors duration-300 focus-within:border-line"
+            <label className="glass-input flex items-center gap-3 rounded-xl px-4"
               style={{ borderColor: errors.name ? '#ef4444' : undefined }}
             >
-              <UserIcon size={15} className="shrink-0 text-faint" />
+              <UserIcon size={15} className="shrink-0 text-muted" />
               <input
                 type="text"
                 value={fields.name}
@@ -84,10 +84,10 @@ function ContactPanel() {
             {errors.name && <p className="mt-1.5 ml-1 font-mono text-[10px] text-red-400">{errors.name}</p>}
           </div>
           <div>
-            <label className="flex items-center gap-3 rounded-xl border bg-[#0a0a0a] px-4 transition-colors duration-300 focus-within:border-line"
+            <label className="glass-input flex items-center gap-3 rounded-xl px-4"
               style={{ borderColor: errors.email ? '#ef4444' : undefined }}
             >
-              <MailIcon size={15} className="shrink-0 text-faint" />
+              <MailIcon size={15} className="shrink-0 text-muted" />
               <input
                 type="email"
                 value={fields.email}
@@ -99,10 +99,10 @@ function ContactPanel() {
             {errors.email && <p className="mt-1.5 ml-1 font-mono text-[10px] text-red-400">{errors.email}</p>}
           </div>
           <div>
-            <label className="flex items-start gap-3 rounded-xl border bg-[#0a0a0a] px-4 pt-3 transition-colors duration-300 focus-within:border-line"
+            <label className="glass-input flex items-start gap-3 rounded-xl px-4 pt-3"
               style={{ borderColor: errors.message ? '#ef4444' : undefined }}
             >
-              <MessageIcon size={15} className="mt-1 shrink-0 text-faint" />
+              <MessageIcon size={15} className="mt-1 shrink-0 text-muted" />
               <textarea
                 rows={5}
                 value={fields.message}
@@ -118,12 +118,12 @@ function ContactPanel() {
             <button
               type="submit"
               disabled={status === 'sending'}
-              className="w-full mt-1 inline-flex items-center justify-center gap-2 rounded-xl bg-[#e8e8e8] px-6 py-3.5 text-sm font-medium text-[#050505] transition-all duration-300 hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed"
+              className="primary-gradient mt-1 inline-flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-medium transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
             >
             <AnimatePresence mode="wait">
               {status === 'sending' ? (
                 <motion.span key="sending" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-2">
-                  <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-[#050505]/30 border-t-[#050505]" />
+                  <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
                   Sending...
                 </motion.span>
               ) : status === 'sent' ? (
@@ -143,22 +143,24 @@ function ContactPanel() {
         </form>
       </div>
 
-      <div className="rounded-3xl border border-line-soft bg-card p-8">
+      <div className="gradient-card rounded-3xl border border-white/10 bg-card p-8">
         <h4 className="font-mono text-[10px] uppercase tracking-[0.25em] text-faint">
           Connect With Me
         </h4>
         <div className="mt-5 grid grid-cols-2 gap-3">
           {socialLinks.map((social) => {
             const Icon = socialIcons[social.icon];
+            const href = social.href || socialUrl(social.icon, social.handle);
             return (
               <a
                 key={social.label}
-                href={socialUrl(social.icon, social.handle)}
-                target="_blank"
-                rel="noreferrer noopener"
-                className={`${social.wide ? 'col-span-2' : ''} group flex items-center gap-3.5 rounded-xl border border-line-soft bg-[#0a0a0a] px-4 py-3.5 transition-colors duration-300 hover:border-white/20`}
+                href={social.inactive ? undefined : href}
+                target={social.inactive ? undefined : '_blank'}
+                rel={social.inactive ? undefined : 'noreferrer noopener'}
+                aria-disabled={social.inactive || undefined}
+                className={`${social.wide ? 'col-span-2' : ''} group flex items-center gap-3.5 rounded-xl border border-white/8 bg-white/2 px-4 py-3.5 transition-all duration-300 ${social.inactive ? 'cursor-not-allowed opacity-45' : 'hover:border-electric/50 hover:bg-electric/5 hover:shadow-[0_0_24px_-10px_rgba(37,99,255,0.6)]'}`}
               >
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/[0.05] text-muted transition-all duration-300 group-hover:text-text group-hover:bg-white/[0.08]">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-electric/8 text-muted transition-all duration-300 group-hover:text-cyan group-hover:bg-electric/15 group-hover:shadow-[0_0_16px_-6px_rgba(0,217,255,0.6)]">
                   <Icon size={17} />
                 </span>
                 <span>
@@ -196,13 +198,13 @@ function CommentsPanel() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="rounded-3xl border border-line-soft bg-card p-8">
+      <div className="gradient-card rounded-3xl border border-white/10 bg-card p-8">
         <h3 className="font-display text-2xl font-bold tracking-tight text-text">Comments</h3>
         <p className="mt-3 text-sm font-light text-muted">Leave your thoughts here</p>
 
         <form className="mt-8 flex flex-col gap-4" onSubmit={postComment}>
-          <label className="flex items-center gap-3 rounded-xl border border-line-soft bg-[#0a0a0a] px-4 transition-colors duration-300 focus-within:border-line">
-            <UserIcon size={15} className="shrink-0 text-faint" />
+          <label className="glass-input flex items-center gap-3 rounded-xl px-4">
+            <UserIcon size={15} className="shrink-0 text-muted" />
             <input
               type="text"
               value={name}
@@ -212,10 +214,10 @@ function CommentsPanel() {
             />
           </label>
           <div>
-            <label className="flex items-start gap-3 rounded-xl border bg-[#0a0a0a] px-4 pt-3 transition-colors duration-300 focus-within:border-line"
+            <label className="glass-input flex items-start gap-3 rounded-xl px-4 pt-3"
               style={{ borderColor: commentError ? '#ef4444' : undefined }}
             >
-              <MessageIcon size={15} className="mt-1 shrink-0 text-faint" />
+              <MessageIcon size={15} className="mt-1 shrink-0 text-muted" />
               <textarea
                 rows={4}
                 value={text}
@@ -228,14 +230,14 @@ function CommentsPanel() {
           </div>
           <button
             type="button"
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-dashed border-white/20 px-5 py-3 text-sm font-medium text-muted transition-colors duration-300 hover:border-white/40 hover:text-text"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-dashed border-cyan/20 px-5 py-3 text-sm font-medium text-muted transition-colors duration-300 hover:border-cyan/50 hover:text-white hover:bg-cyan/4"
           >
             <UploadIcon size={15} />
             Upload Image
           </button>
           <button
             type="submit"
-            className="mt-1 inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 px-6 py-3.5 text-sm font-medium text-text transition-all duration-300 hover:border-white/35 hover:bg-white/[0.03]"
+            className="btn-secondary mt-1 inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-medium"
           >
             <SendIcon size={15} />
             Post Comment
@@ -243,7 +245,7 @@ function CommentsPanel() {
         </form>
       </div>
 
-      <div className="rounded-3xl border border-line-soft bg-card p-8">
+      <div className="gradient-card rounded-3xl border border-white/10 bg-card p-8">
         <h4 className="mb-5 font-mono text-[10px] uppercase tracking-[0.25em] text-faint">
           Recent Comments
         </h4>
@@ -262,15 +264,15 @@ function CommentsPanel() {
                 layout
                 className={`flex items-start gap-3.5 rounded-2xl border px-5 py-4 ${
                   comment.pinned
-                    ? 'border-white/20 bg-white/[0.04]'
-                    : 'border-line-soft bg-[#0a0a0a]'
+                    ? 'border-electric/30 bg-electric/6 shadow-[0_0_20px_-10px_rgba(37,99,255,0.5)]'
+                    : 'border-white/8 bg-white/2'
                 }`}
               >
                 <span
                   className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full font-mono text-xs ${
                     comment.pinned
                       ? 'border border-violet-400/40 bg-violet-400/10 text-violet-300'
-                      : 'border border-white/10 bg-white/[0.05] text-muted'
+                      : 'border border-white/10 bg-white/5 text-muted'
                   }`}
                 >
                   {comment.name.slice(0, 1).toUpperCase()}
@@ -299,8 +301,8 @@ function CommentsPanel() {
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative py-28">
-      <div className="mx-auto w-full max-w-6xl px-8">
+    <section id="contact" className="section-glow contact-section relative py-28">
+      <div className="relative z-1 mx-auto w-full max-w-6xl px-8">
         <motion.p
           variants={fadeUp}
           initial="hidden"

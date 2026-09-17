@@ -5,12 +5,12 @@ import { EASE_OUT, fadeUp, stagger } from '../data/motion.js';
 
 function PortfolioPreview() {
   return (
-    <div className="overflow-hidden rounded-2xl border border-line bg-[#050505]">
-      <div className="flex items-center gap-2 border-b border-line-soft bg-[#0c0c0c] px-4 py-2.5">
+    <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#050505]">
+      <div className="flex items-center gap-2 border-b border-white/[0.06] bg-[#0a1626] px-4 py-2.5">
         <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
         <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
-        <span className="h-2.5 w-2.5 rounded-full bg-accent/60" />
-        <div className="ml-2 flex flex-1 items-center gap-1.5 rounded-md border border-line bg-[#0a0a0a] px-3 py-1 font-mono text-[9px] text-faint">
+        <span className="h-2.5 w-2.5 rounded-full bg-cyan/60" />
+        <div className="ml-2 flex flex-1 items-center gap-1.5 rounded-md border border-white/[0.08] bg-[#07111f]/70 px-3 py-1 font-mono text-[9px] text-muted">
           <SearchIcon size={9} />
           www.adeniranpatrick.com
         </div>
@@ -62,7 +62,7 @@ export default function ProjectDetail({ onClose }) {
           initial={{ opacity: 0, x: -12 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-10 inline-flex items-center gap-2 font-mono text-[12px] tracking-wide text-faint transition-colors duration-300 hover:text-text"
+          className="mb-10 inline-flex items-center gap-2 font-mono text-[12px] tracking-wide text-muted transition-colors duration-300 hover:text-cyan"
         >
           <ArrowRightIcon size={14} className="rotate-180" />
           Back
@@ -81,7 +81,7 @@ export default function ProjectDetail({ onClose }) {
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-          className="mt-6 h-px origin-left bg-white/10"
+          className="mt-6 h-px origin-left bg-gradient-to-r from-electric/70 via-cyan/50 to-transparent"
         />
 
         <div className="mt-10 grid gap-14 md:grid-cols-[1fr_460px]">
@@ -102,7 +102,7 @@ export default function ProjectDetail({ onClose }) {
               {infoItems.map((item) => (
                 <div
                   key={item.label}
-                  className="rounded-xl border border-line-soft bg-card px-5 py-4"
+                  className="rounded-xl border border-white/[0.08] bg-card px-5 py-4"
                 >
                   <p className="font-display text-xl font-bold text-text">{item.value}</p>
                   <p className="mt-0.5 font-mono text-[10px] uppercase tracking-widest text-faint">
@@ -153,7 +153,7 @@ export default function ProjectDetail({ onClose }) {
 
             <motion.div
               variants={fadeUp}
-              className="rounded-2xl border border-line-soft bg-card px-7 py-6"
+              className="gradient-card rounded-2xl border border-white/10 px-7 py-6"
             >
               <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.25em] text-faint">
                 Key Features
@@ -164,7 +164,7 @@ export default function ProjectDetail({ onClose }) {
                     key={feature}
                     className="flex items-start gap-3 font-mono text-[12px] tracking-wide text-muted"
                   >
-                    <span className="mt-0.5 text-accent">0{i + 1}</span>
+                    <span className="mt-0.5 text-cyan">0{i + 1}</span>
                     {feature}
                   </li>
                 ))}

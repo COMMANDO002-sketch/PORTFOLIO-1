@@ -18,7 +18,7 @@ export default function Intro({ onDone }) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#050505]"
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-gradient-to-br from-[#07111f] via-[#050505] to-[#07111f] shadow-[inset_0_0_220px_rgba(37,99,255,0.09)]"
       initial={{ opacity: 1 }}
       animate={{ opacity: 0 }}
       transition={{ duration: 0.8, ease: 'easeInOut', delay: 2.6 }}
@@ -45,7 +45,7 @@ export default function Intro({ onDone }) {
                 transition: { duration: 0.7, ...EASE_OUT },
               },
             }}
-            className="flex h-14 w-14 items-center justify-center rounded-full border border-white/10 bg-[#0d0d0d] text-muted"
+            className="flex h-14 w-14 items-center justify-center rounded-full border border-cyan/20 bg-gradient-to-br from-electric to-cyan text-white shadow-[0_12px_32px_-10px_rgba(37,99,255,0.7)]"
           >
             <Icon size={22} />
           </motion.div>
@@ -69,7 +69,7 @@ export default function Intro({ onDone }) {
         initial="hidden"
         animate="visible"
         transition={{ duration: 0.9, delay: 1.7, ...EASE_OUT }}
-        className="mt-6 font-mono text-xs tracking-widest text-faint"
+        className="mt-6 font-mono text-xs tracking-widest text-muted"
       >
         {personalInfo.url}
       </motion.p>
